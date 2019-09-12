@@ -5,7 +5,7 @@ namespace App\Http\Controllers\wechat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class Event extends Controller
+class EventController extends Controller
 {
     public function event()
     {
