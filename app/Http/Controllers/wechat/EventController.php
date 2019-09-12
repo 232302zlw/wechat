@@ -11,7 +11,8 @@ class EventController extends Controller
     {
 //        dd($_POST);
         $xml_string = file_get_contents('php://input'); // 获取
-        $wechat_log_path = storage_path('logs/wecchat/'.date("Y-m-d").'.log');
+
+        $wechat_log_path = storage_path('/logs/wechat/'.date("Y-m-d").'.log');
         file_put_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
         file_put_contents($wechat_log_path,$xml_string,FILE_APPEND);
         file_put_contents($wechat_log_path,"\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n",FILE_APPEND);
