@@ -19,6 +19,11 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+//        '*' // 所有的页面都不用加csrf验证
+
+        // 去除csrf验证的路由
+//        'notify_url','return_url',
+//        'liuyan_info','wechat/enent',
+//        '/biaobai/notify_url'
     ];
 }

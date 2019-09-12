@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1 align="center">微信公众号标签管理</h1>
-    <h3 align="center"><a href="{{url('wechat/addtag')}}">添加标签</a></h3>
+    <h3 align="center"><a href="{{url('wechat/addtag')}}">添加标签</a>&ensp;&ensp;&ensp;&ensp;<a href="{{url('wechat/userlist')}}">关注列表</a></h3>
     <table border="1" width="700" align="center">
         <tr align="center">
             <td>标签ID</td>
@@ -29,7 +29,7 @@
             </td>
             <td>
                 <a href="{{url('/wechat/fanslist')}}?tagid={{$v['id']}}">粉丝列表</a> |
-                <a href="{{url('/wechat/userlist')}}?tagid={{$v['id']}}">粉丝加标签</a>
+                <a href="{{url('/wechat/push_message')}}?tagid={{$v['id']}}">推送消息</a>
             </td>
         </tr>
         @endforeach

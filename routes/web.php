@@ -182,6 +182,11 @@ Route::prefix('wechat')->group(function(){
 
     Route::get('fanslist','wechat\TagController@fans_openid_list'); // 标签下粉丝列表
     Route::get('userlist','wechat\TagController@get_user_list');    // 所有关注的用户列表
+    Route::post('tag_openid','wechat\TagController@tag_openid');    // 为用户加标签
+    Route::get('usertaglist','wechat\TagController@user_tag_list'); // 用户的标签列表
+    Route::get('push_message','wechat\TagController@push_message');  // 根据标签群发消息视图
+    Route::post('do_push_message','wechat\TagController@do_push_message');// 根据标签群发消息处理
 
+    Route::get('send_message','wechat\TagController@send_template_message');// 发送模板消息
 });
 /**********************************************************************************/
