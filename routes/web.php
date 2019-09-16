@@ -155,38 +155,46 @@ Route::prefix('index')->middleware('landing')->group(function(){
 /**********************************************************************************/
 
 
-/************************** 微信测试 ***********************************************/
+/************************************************ 微信测试 *****************************************************/
 Route::prefix('wechat')->group(function(){
-    Route::get('list','WechatController@get_user_list');            // 用户列表
-    Route::get('detail','WechatController@get_user_detail');        // 用户详情
-    Route::get('login','WechatController@login');                   // 微信授权登陆
-    Route::get('wechat_login','WechatController@wechat_login');     // 微信登陆
-    Route::get('code','WechatController@code');                     // 接收用户code
+    Route::get('list','WechatController@get_user_list');                    // 用户列表
+    Route::get('detail','WechatController@get_user_detail');                // 用户详情
+    Route::get('login','WechatController@login');                           // 微信授权登陆
+    Route::get('wechat_login','WechatController@wechat_login');             // 微信登陆
+    Route::get('code','WechatController@code');                             // 接收用户code
 
-    Route::get('curl_1','WechatController@curl_1');                 // curl_1测试
-    Route::get('curl','WechatController@curl');                     // curl测试
+    Route::get('curl_1','WechatController@curl_1');                         // curl_1测试
+    Route::get('curl','WechatController@curl');                             // curl测试
 
-    Route::get('sucai','WechatController@sucai');                   // 素材上传视图
-    Route::post('upload_do','WechatController@upload_do');          // 上传素材最终结果
-    Route::get('curl_upload','WechatController@curl_upload');       // 上传素材处理
+    Route::get('sucai','WechatController@sucai');                           // 素材上传视图
+    Route::post('upload_do','WechatController@upload_do');                  // 上传素材最终结果
+    Route::get('curl_upload','WechatController@curl_upload');               // 上传素材处理
 
-    Route::get('source','WechatController@wechat_source');          // 微信素材管理页面
-    Route::get('clear_api','WechatController@clear_api');           // 调用频次清0
+    Route::get('source','WechatController@wechat_source');                  // 微信素材管理页面
+    Route::get('clear_api','WechatController@clear_api');                   // 调用频次清0
 
-    Route::get('taglist','wechat\TagController@list');              // 标签列表
-    Route::get('addtag','wechat\TagController@create');             // 添加标签
-    Route::post('savetag','wechat\TagController@save');             // 添加标签处理
-    Route::get('edittag','wechat\TagController@edit');              // 修改标签
-    Route::post('updatetag','wechat\TagController@update');         // 修改标签处理
-    Route::get('deletetag/{id}','wechat\TagController@delete');     // 删除标签
+    Route::get('taglist','wechat\TagController@list');                      // 标签列表
+    Route::get('addtag','wechat\TagController@create');                     // 添加标签
+    Route::post('savetag','wechat\TagController@save');                     // 添加标签处理
+    Route::get('edittag','wechat\TagController@edit');                      // 修改标签
+    Route::post('updatetag','wechat\TagController@update');                 // 修改标签处理
+    Route::get('deletetag/{id}','wechat\TagController@delete');             // 删除标签
 
-    Route::get('fanslist','wechat\TagController@fans_openid_list'); // 标签下粉丝列表
-    Route::get('userlist','wechat\TagController@get_user_list');    // 所有关注的用户列表
-    Route::post('tag_openid','wechat\TagController@tag_openid');    // 为用户加标签
-    Route::get('usertaglist','wechat\TagController@user_tag_list'); // 用户的标签列表
-    Route::get('push_message','wechat\TagController@push_message');  // 根据标签群发消息视图
-    Route::post('do_push_message','wechat\TagController@do_push_message');// 根据标签群发消息处理
+    Route::get('fanslist','wechat\TagController@fans_openid_list');         // 标签下粉丝列表
+    Route::get('userlist','wechat\TagController@get_user_list');            // 所有关注的用户列表
+    Route::get('taguserlist','wechat\TagController@get_tag_user_list');     // 所有关注的用户列表
+    Route::post('tag_openid','wechat\TagController@tag_openid');            // 为用户加标签
+    Route::get('usertaglist','wechat\TagController@user_tag_list');         // 用户的标签列表
+
+    Route::get('push_message','wechat\TagController@push_message');         // 根据标签群发消息视图
+    Route::post('do_push_message','wechat\TagController@do_push_message');  // 根据标签群发消息处理
 
     Route::get('send_message','wechat\TagController@send_template_message');// 发送模板消息
 });
-/**********************************************************************************/
+
+/************************************************ 用户推送消息 *****************************************************/
+Route::prefix('user')->group(function(){
+    Route::post('send_message','wechat\TagController@send_message');        // 根据openid单用户发送消息
+    Route::post('do_send_message','wechat\TagController@do_send_message');  // 根据openid单用户发送消息
+});
+/**************************************************************************************************************/

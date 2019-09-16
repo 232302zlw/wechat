@@ -146,7 +146,28 @@ class TagController extends Controller
         }
 //        dd($last_info);
 //        dd($res['data']['openid']);
-        return view('fans.userlist',['info'=>$last_info,'tagid'=>isset($req['tagid'])?$req['tagid']:'']);
+        return view('fans.userlist',['info'=>$last_info]);
+    }
+
+    /**
+     * 获取所有关注的 用户列表（添加标签专用）
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function get_tag_user_list(Request $request)
+    {
+        $req = $request->all();
+        $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->tools->get_wechat_access_token().'&next_openid=');
+        $res = json_decode($result,1);
+        $last_info = [];
+        foreach ($res['data']['openid'] as $k => $v) {
+            $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$v.'&lang=zh_CN');
+            $user = json_decode($user_info,1);
+            $last_info[$k]['nickname'] = $user['nickname'];
+            $last_info[$k]['openid'] = $v;
+        }
+//        dd($last_info);
+//        dd($res['data']['openid']);
+        return view('fans.taguserlist',['info'=>$last_info,'tagid'=>isset($req['tagid'])?$req['tagid']:'']);
     }
 
     /**
@@ -167,7 +188,7 @@ class TagController extends Controller
         if ($result['errmsg'] == 'ok') {
             return redirect('/wechat/taglist');
         }else{
-            echo $result;
+            dd($result);
         }
     }
 
@@ -216,6 +237,7 @@ class TagController extends Controller
     public function do_push_message(Request $request)
     {
         $req = $request->all();
+        dd($req);
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->tools->get_wechat_access_token();
         $data = [
             "filter" => [
@@ -236,7 +258,9 @@ class TagController extends Controller
         }
     }
 
-
+    /**
+     * 发送模板消息
+     */
     public function send_template_message()
     {
         $openid = 'oYLShjkrIrRkZkMcZ20-1_VBSJ6c';
@@ -263,5 +287,40 @@ class TagController extends Controller
         $res = $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
         $result = json_decode($res,1);
         dd($result);
+    }
+
+    /**
+     * 单个用户 发送消息 视图
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function send_message(Request $request)
+    {
+        $req = $request->all();
+        unset($req['_token']);
+        return view('fans.sendMessage',['info'=>json_encode($req['openid_list'])]);
+    }
+
+
+    public function do_send_message(Request $request)
+    {
+        $req = $request->all();
+//        dd($req);
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token='.$this->tools->get_wechat_access_token();
+        $data = [
+            'touser' =>json_decode($req['openid'],1),
+            'msgtype' => 'text',
+            'text' => [
+                'content' => $req['message']
+            ]
+        ];
+//        dd($data);
+        $res = $this->tools->curl_post($url,json_encode($data));
+        $result = json_decode($res,1);
+        if($result['errcode'] == 0){
+            echo "<script>alert('发送成功');localtion.href='/wechat/userlist'</script>";
+        }else{
+            dd($result);
+        }
     }
 }
