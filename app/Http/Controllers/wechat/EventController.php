@@ -29,7 +29,7 @@ class EventController extends Controller
                 $share_code = explode('_',$xml_arr['EventKey'])[1];
                 $user_openid = $xml_arr['FromUserName']; // 粉丝的openid
                 // 判断是否已经在日志里
-                $wechat_openid = DB::table('wechat_openid')->where(['openid',$user_openid])->first();
+                $wechat_openid = DB::table('wechat_openid')->where('openid',$user_openid)->first();
                 if (empty($wechat_openid)) {
                     DB::table('users')->where('id',$share_code)->increment('share_num',1);
                     DB::table('wechat_openid')->insert([
