@@ -192,9 +192,16 @@ Route::prefix('wechat')->group(function(){
     Route::get('send_message','wechat\TagController@send_template_message');// 发送模板消息
 });
 
-/************************************************ 用户推送消息 *****************************************************/
+/************************************************ 用户推送消息 *************************************************/
 Route::prefix('user')->group(function(){
     Route::post('send_message','wechat\TagController@send_message');        // 根据openid单用户发送消息
     Route::post('do_send_message','wechat\TagController@do_send_message');  // 根据openid单用户发送消息
+});
+/**************************************************************************************************************/
+
+/************************************************ 用户推送消息 *************************************************/
+Route::prefix('agent')->namespace('wechat')->group(function(){
+    Route::get('list','AgentController@agent_list');                         // 获取关注用户视图
+    Route::get('create_qrcode','AgentController@create_qrcode');             // 创建二维码
 });
 /**************************************************************************************************************/
