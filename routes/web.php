@@ -141,6 +141,7 @@ Route::prefix('goods')->middleware('checklogin')->group(function(){
 
 /************************** 前台管理 ***********************************************/
 	Route::get('','index\IndexController@index');					// 主页视图
+
 Route::prefix('index')->middleware('landing')->group(function(){
 	Route::get('user','index\IndexController@user');				// 用户详情视图
 	Route::get('info','index\IndexController@info');				// 用户信息修改视图
@@ -157,6 +158,7 @@ Route::prefix('index')->middleware('landing')->group(function(){
 
 /************************************************ 微信测试 *****************************************************/
 Route::prefix('wechat')->group(function(){
+    Route::get('event','wechat\EventController@event');                     // event
     Route::get('list','WechatController@get_user_list');                    // 用户列表
     Route::get('detail','WechatController@get_user_detail');                // 用户详情
     Route::get('login','WechatController@login');                           // 微信授权登陆
