@@ -31,7 +31,7 @@ class EventController extends Controller
                 // 判断是否已经在日志里
                 $wechat_openid = DB::table('wechat_openid')->where(['openid',$user_openid])->first();
                 if (empty($wechat_openid)) {
-                    Users::where('id',$share_code)->increment('share_num',1);
+                    DB::table('users')->where('id',$share_code)->increment('share_num',1);
                     DB::table('wechat_openid')->insert([
                         'openid' => $user_openid,
                         'add_time' => time()
