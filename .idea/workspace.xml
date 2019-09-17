@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="42fa0a29-50b9-46a3-a5a1-fd7b42a7d771" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/wechat/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/wechat/EventController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +165,7 @@
       <workItem from="1568631820378" duration="3534000" />
       <workItem from="1568641110220" duration="8607000" />
       <workItem from="1568679938358" duration="7472000" />
-      <workItem from="1568701005032" duration="480000" />
+      <workItem from="1568701005032" duration="1769000" />
     </task>
     <servers />
   </component>
