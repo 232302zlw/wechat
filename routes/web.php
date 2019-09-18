@@ -193,6 +193,7 @@ Route::prefix('wechat')->group(function(){
 
     Route::get('send_message','wechat\TagController@send_template_message');// 发送模板消息
 });
+/**************************************************************************************************************/
 
 /************************************************ 用户推送消息 *************************************************/
 Route::prefix('user')->group(function(){
@@ -205,5 +206,12 @@ Route::prefix('user')->group(function(){
 Route::prefix('agent')->namespace('wechat')->group(function(){
     Route::get('list','AgentController@agent_list');                         // 获取关注用户视图
     Route::get('create_qrcode','AgentController@create_qrcode');             // 创建二维码
+});
+/**************************************************************************************************************/
+
+
+/************************************************ 自定义菜单** *************************************************/
+Route::prefix('menu')->namespace('wechat')->group(function(){
+   Route::get('menu','MenuController@menu');                                 // 自定义菜单
 });
 /**************************************************************************************************************/
