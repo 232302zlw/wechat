@@ -11,9 +11,9 @@ class EventController extends Controller
     public function event()
     {
 //        dd($_POST);
-        $xml_string = file_get_contents('php://input'); // 获取
-
-        $wechat_log_path = storage_path('/logs/wechat/'.date("Y-m-d").'.log');
+        $xml_string = file_get_contents('php://input'); // 获取微信发过来的xml数据
+        dd($xml_string);
+        $wechat_log_path = storage_path('/logs/wechat/'.date("Y-m-d").'.log');  // 生成日志文件
         file_put_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
         file_put_contents($wechat_log_path,$xml_string,FILE_APPEND);
         file_put_contents($wechat_log_path,"\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n",FILE_APPEND);
@@ -23,6 +23,8 @@ class EventController extends Controller
         $xml_arr = (array)$xml_obj;
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
 //        echo $_GET['echostr'];
+
+
         // 业务逻辑（防止刷业务）
         if ($xml_arr['MsgType'] == 'event') {
             if ($xml_arr['Event'] == 'subscribe') {
@@ -39,8 +41,10 @@ class EventController extends Controller
                 }
             }
         }
-        $message = '欢迎关注！大爷常来玩啊！';
-        $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
 
+        $message = '欢迎关注！大爷常来玩啊！';
+        //$xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+        $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['ToUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['FromUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+        echo $xml_str;
     }
 }

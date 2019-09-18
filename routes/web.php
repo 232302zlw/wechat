@@ -157,8 +157,8 @@ Route::prefix('index')->middleware('landing')->group(function(){
 
 
 /************************************************ 微信测试 *****************************************************/
+
 Route::prefix('wechat')->group(function(){
-    Route::get('event','wechat\EventController@event');                     // event
     Route::get('list','WechatController@get_user_list');                    // 用户列表
     Route::get('detail','WechatController@get_user_detail');                // 用户详情
     Route::get('login','WechatController@login');                           // 微信授权登陆
