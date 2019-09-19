@@ -79,7 +79,7 @@ class MenuController extends Controller
                              'name' => $v['name2'],
                              'key'  => $v['event_value']
                          ];
-                     }elseif ($v['type' == 2]) { // view
+                     }elseif ($v['type'] == 2) { // view
                          $button_arr = [
                              'type' => 'view',
                              'name' => $v['name2'],
@@ -129,4 +129,20 @@ class MenuController extends Controller
          $result = json_decode($res,1);
          dd($result);
      }
+
+
+     public function location()
+     {
+         $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+         $jsapi_ticket = $this->tools->get_wechat_jsapi_ticket();
+         $nonceStr  = rand(1000,9999).'wechat';
+         $timestamp = time();
+         $sign_str = 'jsapi_ticket='.$jsapi_ticket.'&nonceStr='.$nonceStr.'&timestamp='.$timestamp.'&url='.$url;
+         $signature = sha1($sign_str);
+         $data['nonceStr']  = $nonceStr;
+         $data['timestamp'] = $timestamp;
+         $data['signature'] = $signature;
+         return view('menu.location',['data'=>$data]);
+     }
+
 }

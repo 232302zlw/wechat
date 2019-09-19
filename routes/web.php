@@ -216,5 +216,6 @@ Route::prefix('menu')->namespace('wechat')->group(function(){
     Route::get('create_menu','MenuController@create_menu');                   // 创建菜单视图
     Route::post('save_menu','MenuController@save_menu');                      // 创建菜单处理
     Route::get('list_menu','MenuController@list_menu');                       // 展示数据库中已创建的菜单
+    Route::get('location','MenuController@location');                         // jssdk获取地理位置
 });
 /**************************************************************************************************************/
