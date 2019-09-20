@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\wechat;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\File;
 use Illuminate\Suport\Facades\Storage;
 use GuzzleHttp\Client;
@@ -71,7 +72,7 @@ class WechatController extends Controller
 
     /**
      * 用户详情
-    */
+     */
     public function get_user_detail()
     {
         $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->tools->get_wechat_access_token().'&next_openid=');
