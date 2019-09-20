@@ -137,7 +137,7 @@ class MenuController extends Controller
          $jsapi_ticket = $this->tools->get_wechat_jsapi_ticket();
          $nonceStr  = rand(1000,9999).'wechat';
          $timestamp = time();
-         $sign_str = 'jsapi_ticket='.$jsapi_ticket.'&nonceStr='.$nonceStr.'&timestamp='.$timestamp.'&url='.$url;
+         $sign_str = 'jsapi_ticket='.$jsapi_ticket.'&noncestr='.$nonceStr.'&timestamp='.$timestamp.'&url='.$url;
          $signature = sha1($sign_str);
          $data['nonceStr']  = $nonceStr;
          $data['timestamp'] = $timestamp;
