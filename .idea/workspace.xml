@@ -126,7 +126,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../wechat_test" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -181,7 +181,7 @@
       <workItem from="1568852871347" duration="8809000" />
       <workItem from="1568876470953" duration="5687000" />
       <workItem from="1568939162421" duration="8499000" />
-      <workItem from="1568961164607" duration="1937000" />
+      <workItem from="1568961164607" duration="4567000" />
     </task>
     <servers />
   </component>

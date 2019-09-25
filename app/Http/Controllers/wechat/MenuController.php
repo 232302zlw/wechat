@@ -47,7 +47,6 @@ class MenuController extends Controller
     public function menu()
      {
          $data = [];
-//         $event_arr = [1=>'click',2=>'view'];
          $menu_list = DB::table('wechat_menu')->select(['name1'])->groupBy('name1')->get(); // 获取一级菜单
          foreach($menu_list as $vv) {
              $menu_info = DB::table('wechat_menu')->where(['name1'=>$vv->name1])->get(); // 获取一级菜单下所有 三维数组
@@ -135,7 +134,7 @@ class MenuController extends Controller
      {
          $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
          $jsapi_ticket = $this->tools->get_wechat_jsapi_ticket();
-         $nonceStr  = rand(1000,9999).'wechat';
+         $noncestr  = rand(1000,9999).'wechat';
          $timestamp = time();
          $sign_str = 'jsapi_ticket='.$jsapi_ticket.'&noncestr='.$noncestr.'&timestamp='.$timestamp.'&url='.$url;
          $signature = sha1($sign_str);

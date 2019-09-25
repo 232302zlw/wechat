@@ -180,7 +180,7 @@ Route::prefix('wechat')->namespace('wechat')->group(function(){
     Route::post('savetag','TagController@save');                            // 添加标签处理
     Route::get('edittag','TagController@edit');                             // 修改标签
     Route::post('updatetag','TagController@update');                        // 修改标签处理
-    Route::get('deletetag/{id}','TagController@delete');                   // 删除标签
+    Route::get('deletetag/{id}','TagController@delete');                    // 删除标签
 
     Route::get('fanslist','TagController@fans_openid_list');                // 标签下粉丝列表
     Route::get('userlist','TagController@get_user_list');                   // 所有关注的用户列表

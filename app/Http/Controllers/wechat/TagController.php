@@ -237,7 +237,6 @@ class TagController extends Controller
     public function do_push_message(Request $request)
     {
         $req = $request->all();
-        dd($req);
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->tools->get_wechat_access_token();
         $data = [
             "filter" => [
