@@ -16,6 +16,102 @@ class MenuController extends Controller
         $this->tools = $tools;
     }
 
+    public function test()
+    {
+        $user_url = 'https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->tools->get_wechat_access_token().'&next_openid=';
+        $openid_info = file_get_contents($user_url);
+        $user_result = json_decode($openid_info,1);
+        foreach($user_result['data']['openid'] as $v){
+            $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
+            $data = [
+                'touser' => $v,
+                'template_id' => 'vB4YtNG4q1G51UfI4nobWBzdfhuXu4-qYEVXTFkVUNQ',
+                'data'=>[
+                    'keyword1' => [
+                        'value' => '阿伟',
+                        'color' => '#3300ff'
+                    ],
+                    'keyword2' => [
+                        'value' => '已签到',
+                        'color' => '#ff0066'
+                    ],
+                    'keyword3' => [
+                        'value' => '30',
+                        'color' => '#ff0000'
+                    ],
+                    'keyword4' => [
+                        'value' => '2019-09-25',
+                        'color' => '#ff33ff'
+                    ],
+                ]
+            ];
+            $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+        }
+    }
+
+    public function test2()
+    {
+//        \Log::Info('执行了任务调度-推送签到模板');
+        $info = DB::table('wechat_openid')->get()->toArray();
+//        dd($info[0]->sign_day);
+        $today = date('Y-m-d',time());
+        foreach ($info as $k => $v){
+            if($today !== $info[$k]->sign_day){
+                $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
+                $data = [
+                    'touser' => $info[$k]->openid,
+                    'template_id' => 'vB4YtNG4q1G51UfI4nobWBzdfhuXu4-qYEVXTFkVUNQ',
+                    'data' => [
+                        'keyword1' => [
+                            'value' => $info[$k]->nickname,
+                            'color' => '#3300ff'
+                        ],
+                        'keyword2' => [
+                            'value' => ' 未签到',
+                            'color' => '#ff0066'
+                        ],
+                        'keyword3' => [
+                            'value' => '总积分'.$info[$k]->score,
+                            'color' => '#ff0000'
+                        ],
+                        'keyword4' => [
+                            'value' => $info[$k]->sign_day,
+                            'color' => '#ff33ff'
+                        ]
+                    ]
+                ];
+                $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+            }elseif($today == $info[$k]['sign_day']){
+//                ($today !== $info[$k]['signin'])
+                $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$this->tools->get_wechat_access_token();
+                $data = [
+                    'touser' => $info[$k]->openid,
+                    'template_id' => 'vB4YtNG4q1G51UfI4nobWBzdfhuXu4-qYEVXTFkVUNQ',
+                    'data' => [
+                        'keyword1' => [
+                            'value' => $info[$k]->nickname,
+                            'color' => '#3300ff'
+                        ],
+                        'keyword2' => [
+                            'value' => ' 已签到',
+                            'color' => '#ff0066'
+                        ],
+                        'keyword3' => [
+                            'value' => '总积分'.$info[$k]->score,
+                            'color' => '#ff0000'
+                        ],
+                        'keyword4' => [
+                            'value' => $today,
+                            'color' => '#ff33ff'
+                        ]
+                    ]
+                ];
+                $this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+            }
+        }
+    }
+
+
     /** 创建菜单视图 */
     public function create_menu()
     {

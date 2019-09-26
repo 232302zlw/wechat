@@ -11,6 +11,7 @@ class EventController extends Controller
     public function event()
     {
 //        dd($_POST);
+//        echo $_GET['echostr'];
         $xml_string = file_get_contents('php://input'); // 获取微信发过来的xml数据
         $wechat_log_path = storage_path('/logs/wechat/'.date("Y-m-d").'.log');  // 生成日志文件
         file_put_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
@@ -21,7 +22,7 @@ class EventController extends Controller
         $xml_obj = simplexml_load_string($xml_string,'SimpleXMLElement',LIBXML_NOCDATA);
         $xml_arr = (array)$xml_obj;
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
-//        echo $_GET['echostr'];
+
 
 
         // 业务逻辑（防止刷业务）
@@ -125,8 +126,9 @@ class EventController extends Controller
             if(empty($db_user)){
                 //没有数据，存入
                 DB::table("wechat_openid")->insert([
-                    'openid'=>$xml_arr['FromUserName'],
-                    'add_time'=>time()
+                    'openid'   => $xml_arr['FromUserName'],
+                    'nickname' => $user_info['nickname'],
+                    'add_time' => time()
                 ]);
             }
             $message = '欢迎'.$user_info['nickname'].'，感谢您的关注!';
