@@ -30,9 +30,14 @@ class EventController extends Controller
 //                'xml'=>$xml_string
 //            ]);
 //            dd($aa);
+                $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->get_wechat_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN';
+                $user_re = file_get_contents($url);
+                $uinfo = json_decode($user_re,1);
+//                dd($uinfo);
                 $user_info = DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->first();
 //                dd($user_info);
-                $message = 'hello'.$user_info->nickname;
+                $message = 'hello'.$uinfo['nickname'];
+                dd($message);
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }
@@ -184,5 +189,11 @@ class EventController extends Controller
 //        $message = '欢迎关注！大爷常来玩啊！';
 //        $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
 //        echo $xml_str;
+    }
+    public function get_wechat_access_token()
+    {
+            $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxf3c63fea45354eec&secret=6ccc59fd6ec3879bad2ad8d420536da3');
+            $re = json_decode($result, 1);
+            return $re['access_token'];
     }
 }
