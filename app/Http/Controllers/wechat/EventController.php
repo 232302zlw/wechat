@@ -36,14 +36,14 @@ class EventController extends Controller
             echo $xml_str;
         }
 
-        if ((!empty$xml_arr['Content']))
+        if (!empty($xml_arr['Content']))
         {
             $data = [
                 'openid' => $xml_arr['FromUserName'],
                 'add_time' => $xml_arr['CreateTime'],
-                'type' = $xml_arr['MsgType'],
-                'content' = $xml_arr['Content'],
-                'msgid' = $xml_arr['MsgId']
+                'type' => $xml_arr['MsgType'],
+                'content' => $xml_arr['Content'],
+                'msgid' => $xml_arr['MsgId']
             ];
             DB::table('msg')->insert($data);
         }
