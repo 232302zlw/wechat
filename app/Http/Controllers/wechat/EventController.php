@@ -24,9 +24,14 @@ class EventController extends Controller
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
 
         if ($xml_arr['EventKey'] == 'second_one'){
-            DB::table('wechat_openid')->insert($xml_string);
+//            $xml_string = (array)$xml_string;
+//            $aa=DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->update([
+//                'xml'=>$xml_string
+//            ]);
+//            dd($aa);
             $user_info = DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->first();
-            $message = 'hello'.$user_info['nickname'];
+//            dd($user_info);
+            $message = 'hello'.$user_info->nickname;
             $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             echo $xml_str;
         }
