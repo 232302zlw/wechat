@@ -30,10 +30,22 @@ class EventController extends Controller
 //            ]);
 //            dd($aa);
             $user_info = DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->first();
-//            dd($user_info);
+            dd($user_info);
             $message = 'hello'.$user_info->nickname;
             $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             echo $xml_str;
+        }
+
+        if ((!empty$xml_arr['Content']))
+        {
+            $data = [
+                'openid' => $xml_arr['FromUserName'],
+                'add_time' => $xml_arr['CreateTime'],
+                'type' = $xml_arr['MsgType'],
+                'content' = $xml_arr['Content'],
+                'msgid' = $xml_arr['MsgId']
+            ];
+            DB::table('msg')->insert($data);
         }
 
 
