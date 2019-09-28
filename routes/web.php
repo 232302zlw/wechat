@@ -218,6 +218,5 @@ Route::prefix('menu')->namespace('wechat')->group(function(){
     Route::get('list_menu','MenuController@list_menu');                       // 展示数据库中已创建的菜单
     Route::get('location','MenuController@location');                         // jssdk获取地理位置
     Route::get('test','MenuController@test');
-    Route::get('test2','MenuController@test2');
 });
 /**************************************************************************************************************/
